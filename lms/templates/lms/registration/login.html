@@ -1,0 +1,25 @@
+{% extends 'lms/base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+    <h2 class="text-2xl font-bold mb-4 text-center">Login to Skytop Africa™</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.errors %}{{ form.username.errors }}{% endif %}
+        </div>
+        <div class="mb-4">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {% if form.password.errors %}{{ form.password.errors }}{% endif %}
+        </div>
+        {% if form.non_field_errors %}
+            <div class="text-red-500 mb-4">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <button type="submit" class="w-full bg-skytop-blue text-white py-2 rounded">Login</button>
+    </form>
+    <p class="text-center mt-4">Don't have an account? Contact admin via /admin to register.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'lms/base.html' %}
+
+{% block content %}
+<div class="text-center mb-8">
+    <h2 class="text-4xl font-bold text-skytop-blue mb-4">Welcome to Skytop Africa™ LMS</h2>
+    <p class="text-xl text-gray-600">Master skills with our crash courses.</p>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+    {% if featured_course %}
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-2xl font-semibold mb-2">Featured: {{ featured_course.title }}</h3>
+        <p class="text-gray-600 mb-4">{{ featured_course.description }}</p>
+        <a href="{% url 'course_detail' featured_course.id %}" class="bg-skytop-blue text-white px-4 py-2 rounded">Enroll Now</a>
+    </div>
+    {% else %}
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-2xl font-semibold mb-2">No Featured Course Yet</h3>
+        <p class="text-gray-600 mb-4">Check back soon!</p>
+    </div>
+    {% endif %}
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-2xl font-semibold mb-2">Coming Soon</h3>
+        <ul class="space-y-2">
+            {% for course in coming_soon %}
+                <li>{{ course.title }}</li>
+            {% empty %}
+                <li>No upcoming courses announced.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

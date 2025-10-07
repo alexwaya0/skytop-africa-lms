@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Skytop Africa™ LMS{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'skytop-blue': '#1e40af' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-skytop-blue">Skytop Africa™</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-skytop-blue">Home</a>
+                    <a href="{% url 'courses' %}" class="text-gray-700 hover:text-skytop-blue">Courses</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-skytop-blue">About</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-skytop-blue">Contact</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-skytop-blue">Dashboard</a>
+                        <a href="{% url 'logout' %}" class="bg-red-500 text-white px-3 py-1 rounded">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="bg-skytop-blue text-white px-3 py-1 rounded">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-7xl mx-auto py-6 px-4">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <p>&copy; 2025 Skytop Africa™. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'lms/base.html' %}
+
+{% block title %}Dashboard - Skytop Africa™{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl font-bold mb-6">Your Dashboard</h2>
+{% if enrollments %}
+<div class="space-y-4">
+    {% for enrollment in enrollments %}
+    <div class="bg-white p-4 rounded-lg shadow">
+        <h3 class="text-xl font-semibold">{{ enrollment.course.title }}</h3>
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+            <div class="bg-skytop-blue h-2.5 rounded-full" style="width: {{ enrollment.progress_percentage }}%"></div>
+        </div>
+        <p class="text-sm text-gray-600">Progress: {{ enrollment.progress_percentage }}% ({{ enrollment.completed_lessons }}/{{ enrollment.course.total_lessons }} lessons)</p>
+        <a href="{% url 'course_detail' enrollment.course.id %}" class="bg-skytop-blue text-white px-4 py-2 rounded mt-2 inline-block">Continue Course</a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-lg">No courses enrolled yet. <a href="{% url 'courses' %}" class="text-skytop-blue">Browse Courses</a></p>
+{% endif %}
+{% endblock %}

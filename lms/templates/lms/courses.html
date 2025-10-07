@@ -1,0 +1,21 @@
+{% extends 'lms/base.html' %}
+
+{% block content %}
+<h2 class="text-3xl font-bold mb-6">All Courses</h2>
+<div class="grid md:grid-cols-3 gap-6">
+    {% for course in courses %}
+    <div class="bg-white p-4 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-2">{{ course.title }}</h3>
+        <p class="text-gray-600 mb-4">{{ course.description|truncatewords:20 }}</p>
+        {% if user.is_authenticated and enrolled_courses|get_item:course.id %}
+            <div class="mb-2">Progress: {{ enrolled_courses|get_item:course.id.progress_percentage }}%</div>
+            <a href="{% url 'course_detail' course.id %}" class="bg-green-500 text-white px-4 py-2 rounded">Continue</a>
+        {% else %}
+            <a href="{% url 'course_detail' course.id %}" class="bg-skytop-blue text-white px-4 py-2 rounded">
+                {% if course.is_coming_soon %}Coming Soon{% else %}Enroll{% endif %}
+            </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
